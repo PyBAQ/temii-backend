@@ -1,0 +1,9 @@
+-r base.txt
+
+#for test
+django-test-plus==1.0.11
+factory-boy==2.6.0
+fake-factory==0.7.4
+
+#testing on travis
+tox==2.7.0

@@ -1,0 +1,14 @@
+*.log
+*.pyc
+configs/settings/local.py
+local_settings.py
+*.sqlite*
+tasks.py
+.tox
+.vscode
+votos/staticfiles/
+env/
+venv/
+.idea/
+Makefile
+.DS_Store

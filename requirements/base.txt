@@ -1,0 +1,7 @@
+#framework base
+Django==1.11.20
+djangorestframework==3.9.2
+
+#postgres
+#psycopg2==2.6.1
+
