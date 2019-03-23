@@ -20,7 +20,7 @@ class CharlaBusiness:
         votes = UsuarioVotoModel.objects.filter(usuario=user, charla=talk)
         if votes.exists():
             vote = votes[:1][0]
-            vote = not vote.active
+            vote.active = not vote.active
         else:
             vote = UsuarioVotoModel(usuario=user, charla=talk)
         vote.save()

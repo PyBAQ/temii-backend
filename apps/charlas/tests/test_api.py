@@ -69,3 +69,15 @@ class TestApiCharla(APITestCase):
         self.assertEqual(1, UsuarioVotoModel.objects.all().count())
         charla.refresh_from_db()
         self.assertEqual(charla.votos, 1)
+
+    def test_unvote_charla(self):
+        charla = CharlaFactory()
+        with self.login(self.user):
+            self.post("/api/talks/{}/vote/".format(charla.id))
+            self.response_200()
+        with self.login(self.user):
+            self.post("/api/talks/{}/vote/".format(charla.id))
+            self.response_200()
+        self.assertEqual(1, UsuarioVotoModel.objects.filter(active=False).count())
+        charla.refresh_from_db()
+        self.assertEqual(charla.votos, 0)
