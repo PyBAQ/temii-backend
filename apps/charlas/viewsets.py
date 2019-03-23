@@ -1,14 +1,16 @@
 from rest_framework import viewsets
 
 from .business import CharlaBusiness
-from .serializers import CharlaSerializer
+from .filters import CharlaFilter
 from .models import CharlaModel
+from .serializers import CharlaSerializer
 
 
 class CharlaViewSet(viewsets.ModelViewSet):
     model = CharlaModel
     queryset = CharlaModel.objects.all()
     serializer_class = CharlaSerializer
+    filterset_class = CharlaFilter
 
     def get_votes(self, data_id):
         if not self.request.user.is_authenticated():

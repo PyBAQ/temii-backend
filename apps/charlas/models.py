@@ -27,7 +27,7 @@ class CharlaModel(models.Model):
     fecha_publicacion = models.DateTimeField(auto_now_add=True)
     categorias = models.ManyToManyField("CategoriaModel")
     prerequisitos = models.TextField(blank=True, null=True)
-    estado = models.CharField(max_length=255, choices=ESTADO_CHOICES,default="posible")
+    estado = models.CharField(max_length=255, choices=ESTADO_CHOICES, default="posible")
     fecha_taller = models.DateField(blank=True, null=True)
     votos = models.PositiveIntegerField(default=0)
     usuario = models.ForeignKey(User, related_name='propone_charla')

@@ -7,12 +7,7 @@ esfuerzo y dedicación han enviado parches de código, reportado bugs,
 redactado documentación, resuelto dudas a los novatos y que generalmente
 han hecho a Temii un mejor proyecto:
 
-- Francisco Cartusciello
-- Javier Daza [http://javierdaza.co](http://javierdaza.co)
-- Cesar Herdenez
 - Leonardo Orozco
-- Sergio C. Orozco Torres [scot3004.wordpress.com](http://scot3004.wordpress.com)
-- Guzmán D. Darío [www.guzmandario.com](http://www.guzmandario.com)
 
 <Por favor agregarse en orden alfabético>
 
