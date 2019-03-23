@@ -45,6 +45,7 @@ class CharlaModel(models.Model):
 class UsuarioVotoModel(models.Model):
     usuario = models.ForeignKey(User)
     charla = models.ForeignKey("CharlaModel")
+    active = models.BooleanField(default=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     class Meta:
