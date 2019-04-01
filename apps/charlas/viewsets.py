@@ -1,9 +1,12 @@
+
 from rest_framework import viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 from .business import CharlaBusiness
 from .filters import CharlaFilter
 from .models import CharlaModel
-from .serializers import CharlaSerializer
+from .serializers import CharlaSerializer, UsuarioVotoSerializer
 
 
 class CharlaViewSet(viewsets.ModelViewSet):
@@ -33,3 +36,10 @@ class CharlaViewSet(viewsets.ModelViewSet):
                         instances[vote.charla_id].vote = vote
                 data = instances.values()
         return super().get_serializer(data, *args, **kwargs)
+
+    @action(detail=True, methods=['post'])
+    def vote(self, request, *args, **kwargs):
+        instance = self.get_object()
+        vote = CharlaBusiness.vote(instance, request.user)
+        serializer = UsuarioVotoSerializer(vote)
+        return Response(serializer.data)

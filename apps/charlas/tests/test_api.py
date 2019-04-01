@@ -4,7 +4,7 @@ from test_plus import APITestCase
 
 from django.contrib.auth.models import User
 
-from ..models import CategoriaModel, CharlaModel
+from ..models import CategoriaModel, CharlaModel, UsuarioVotoModel
 
 from ..factories import UserFactory, CategoriaFactory, CharlaFactory
 
@@ -53,10 +53,31 @@ class TestApiCharla(APITestCase):
         self.assertEqual(charla.titulo, "new titulo")
 
     def test_get_only_posibles_charlas(self):
-        charla = CharlaFactory()
-        charla = CharlaFactory(estado=CharlaModel.ESTADO_AGENDADO)
-        charla = CharlaFactory(estado=CharlaModel.ESTAOO_FINALIZADO)
+        CharlaFactory()
+        CharlaFactory(estado=CharlaModel.ESTADO_AGENDADO)
+        CharlaFactory(estado=CharlaModel.ESTAOO_FINALIZADO)
         self.get("/api/talks/?estado={}".format(CharlaModel.ESTADO_POSIBLE))
         self.response_200()
         content = json.loads(self.last_response.content.decode("utf-8"))
         self.assertEqual(len(content), CharlaModel.objects.filter(estado=CharlaModel.ESTADO_POSIBLE).count())
+
+    def test_vote_charla(self):
+        charla = CharlaFactory()
+        with self.login(self.user):
+            self.post("/api/talks/{}/vote/".format(charla.id))
+            self.response_200()
+        self.assertEqual(1, UsuarioVotoModel.objects.all().count())
+        charla.refresh_from_db()
+        self.assertEqual(charla.votos, 1)
+
+    def test_unvote_charla(self):
+        charla = CharlaFactory()
+        with self.login(self.user):
+            self.post("/api/talks/{}/vote/".format(charla.id))
+            self.response_200()
+        with self.login(self.user):
+            self.post("/api/talks/{}/vote/".format(charla.id))
+            self.response_200()
+        self.assertEqual(1, UsuarioVotoModel.objects.filter(active=False).count())
+        charla.refresh_from_db()
+        self.assertEqual(charla.votos, 0)
