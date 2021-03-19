@@ -1,6 +1,6 @@
 #framework base
 Django==1.11.29
-djangorestframework==3.9.2
+djangorestframework==3.11.2
 django-filter==2.1.0
 
 #postgres
